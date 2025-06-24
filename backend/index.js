@@ -8,7 +8,7 @@ const { HoldingModel } = require("./model/HoldingModel");
 const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 const MONGO_URI = process.env.MONGO_URI;
 const app = express();
 
@@ -39,7 +39,7 @@ app.post("/newOrder", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log("Server is running on http://localhost:3000");
+  console.log("Server is running on http://localhost:3002");
   mongoose.connect(MONGO_URI);
   mongoose.connection.on("error", (err) => {
     console.error("MongoDB connection error:", err);
