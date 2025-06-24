@@ -1,10 +1,16 @@
 import React from "react";
+import { VerticalGraph } from "./VerticalGraph";
+import { useTheme } from "../contexts/ThemeContext";
+import { useUser } from "../contexts/UserContext";
 
 const Summary = () => {
+  const { isDarkMode } = useTheme();
+  const { user } = useUser();
+
   return (
     <>
       <div className="username">
-        <h6>Hi, User!</h6>
+        <h6 className="title">Hi, {user.name.split(" ")[0]}!</h6>
         <hr className="divider" />
       </div>
 
@@ -15,47 +21,71 @@ const Summary = () => {
 
         <div className="data">
           <div className="first">
-            <h3>3.74k</h3>
+            <h3>43.65</h3>
             <p>Margin available</p>
+            <small>
+              Opening balance <span className="profit">43.65</span>
+            </small>
           </div>
           <hr />
-
           <div className="second">
             <p>
-              Margins used <span>0</span>{" "}
+              Commodity <span>0.01</span>
             </p>
             <p>
-              Opening balance <span>3.74k</span>{" "}
+              Commodity <span>0.01</span>
             </p>
           </div>
         </div>
-        <hr className="divider" />
+        <hr />
       </div>
 
       <div className="section">
         <span>
-          <p>Holdings (13)</p>
+          <p>Holdings ({13})</p>
         </span>
 
-        <div className="data">
-          <div className="first">
-            <h3 className="profit">
-              1.55k <small>+5.20%</small>{" "}
-            </h3>
-            <p>P&L</p>
-          </div>
-          <hr />
+        <VerticalGraph />
+      </div>
 
-          <div className="second">
+      <div className="summary">
+        <div className="row">
+          <div className="col">
+            <h5>
+              3.74k <span>Total investment</span>
+            </h5>
             <p>
-              Current Value <span>31.43k</span>{" "}
+              You haven't made any stocks transactions in your DEMAT yet. Go
+              ahead with shopping first equity investment.
             </p>
+          </div>
+          <div className="col">
+            <h5>
+              1.55k <span>Current value</span>
+            </h5>
             <p>
-              Investment <span>29.88k</span>{" "}
+              You haven't made any stocks transactions in your DEMAT yet. Go
+              ahead with shopping first equity investment.
+            </p>
+          </div>
+          <div className="col">
+            <h5>
+              +2.19k <span>P&L</span>
+            </h5>
+            <p>
+              You haven't made any stocks transactions in your DEMAT yet. Go
+              ahead with shopping first equity investment.
             </p>
           </div>
         </div>
-        <hr className="divider" />
+
+        <div className="row">
+          <div className="col">
+            <a href="#" className="btn btn-blue">
+              Start investing
+            </a>
+          </div>
+        </div>
       </div>
     </>
   );

@@ -1,17 +1,26 @@
 import React, { useState } from "react";
-
 import { Link } from "react-router-dom";
+import { KeyboardArrowDown } from "@mui/icons-material";
+import { useTheme } from "../contexts/ThemeContext";
+import { useUser } from "../contexts/UserContext";
+import ProfileDropdown from "./ProfileDropdown";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null);
+  const { isDarkMode } = useTheme();
+  const { user } = useUser();
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
   };
 
-  const handleProfileClick = (index) => {
-    setIsProfileDropdownOpen(!isProfileDropdownOpen);
+  const handleProfileClick = (event) => {
+    setProfileAnchorEl(event.currentTarget);
+  };
+
+  const handleProfileClose = () => {
+    setProfileAnchorEl(null);
   };
 
   const menuClass = "menu";
@@ -90,11 +99,22 @@ const Menu = () => {
           </li>
         </ul>
         <hr />
-        <div className="profile" onClick={handleProfileClick}>
-          <div className="avatar">ZU</div>
-          <p className="username">USERID</p>
+        <div
+          className="profile"
+          onClick={handleProfileClick}
+          style={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+        >
+          <div className="avatar">{user.avatar}</div>
+          <p className="username">{user.username}</p>
+          <KeyboardArrowDown sx={{ ml: 1, fontSize: 16 }} />
         </div>
       </div>
+
+      <ProfileDropdown
+        anchorEl={profileAnchorEl}
+        open={Boolean(profileAnchorEl)}
+        onClose={handleProfileClose}
+      />
     </div>
   );
 };

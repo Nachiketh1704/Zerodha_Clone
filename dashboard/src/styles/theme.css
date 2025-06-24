@@ -1,0 +1,259 @@
+/* Light Theme Variables */
+.light-theme {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-tertiary: #ffffff;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-muted: #adb5bd;
+  --border-color: #dee2e6;
+  --border-light: #f1f1f1;
+  --accent-primary: #4184f3;
+  --accent-secondary: #f56500;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --shadow: 0px 0px 4px 2px rgba(236, 235, 235, 0.5);
+  --shadow-light: 0px 0px 4px 1px rgba(236, 235, 235, 0.3);
+}
+
+/* Dark Theme Variables */
+.dark-theme {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-secondary: #e5e5e7;
+  --text-muted: #8e8e93;
+  --border-color: #3a3a3c;
+  --border-light: #2d2d2d;
+  --accent-primary: #4184f3;
+  --accent-secondary: #ff6b35;
+  --success-color: #30d158;
+  --danger-color: #ff453a;
+  --warning-color: #ffd60a;
+  --shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.3);
+  --shadow-light: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Base Styles */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* TopBar Styles */
+.topbar-container {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-light);
+}
+
+.indices-container {
+  border-right: 1px solid var(--border-color);
+}
+
+.index {
+  color: var(--text-secondary);
+}
+
+.index-points {
+  color: var(--danger-color);
+}
+
+.percent {
+  color: var(--text-muted);
+}
+
+/* Menu Styles */
+.menu-container {
+  background-color: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
+}
+
+.menu {
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.menu.selected {
+  color: var(--accent-secondary);
+}
+
+.menu:hover {
+  color: var(--accent-secondary);
+}
+
+.profile .username {
+  color: var(--text-primary);
+}
+
+.profile:hover .username {
+  color: var(--accent-secondary);
+}
+
+/* WatchList Styles */
+.watchlist-container {
+  background-color: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
+  box-shadow: var(--shadow-light);
+}
+
+.search {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.search::placeholder {
+  color: var(--text-muted);
+}
+
+.counts {
+  color: var(--text-muted);
+}
+
+.list li {
+  border-bottom: 1px solid var(--border-light);
+  background-color: var(--bg-primary);
+}
+
+.list li:hover {
+  background-color: var(--bg-secondary);
+}
+
+.item .up {
+  color: var(--success-color);
+}
+
+.item .down {
+  color: var(--danger-color);
+}
+
+/* Content Area */
+.content {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Tables */
+.order-table tr {
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.order-table th {
+  color: var(--text-muted);
+  background-color: var(--bg-primary);
+}
+
+.order-table td {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+}
+
+.order-table tr td:nth-child(1),
+.order-table tr td:nth-child(4) {
+  border-right: 1px solid var(--border-light);
+}
+
+/* Cards and Sections */
+.table {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.table .data p:first-child {
+  color: var(--text-muted);
+}
+
+.table hr {
+  background-color: var(--border-color);
+}
+
+/* Buttons */
+.btn-blue {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+.btn-blue:hover {
+  background-color: #74a7fa;
+}
+
+.btn-green {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.btn-green:hover {
+  background-color: #7bdd7f;
+}
+
+/* Profile and Avatar */
+.profile .avatar {
+  background-color: var(--bg-secondary);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-color);
+}
+
+/* Scrollbars for dark theme */
+.dark-theme ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.dark-theme ::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+.dark-theme ::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.dark-theme ::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Transitions */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Material-UI Component Overrides */
+.MuiPaper-root {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.MuiDialog-paper {
+  background-color: var(--bg-secondary) !important;
+}
+
+.MuiMenuItem-root {
+  color: var(--text-primary) !important;
+}
+
+.MuiMenuItem-root:hover {
+  background-color: var(--bg-tertiary) !important;
+}
+
+.MuiDivider-root {
+  border-color: var(--border-color) !important;
+}
+
+.MuiFormControlLabel-label {
+  color: var(--text-primary) !important;
+}
+
+.MuiTypography-root {
+  color: inherit !important;
+}

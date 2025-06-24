@@ -1,85 +1,253 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useTheme } from "../contexts/ThemeContext";
 
 const Funds = () => {
+  const { isDarkMode, currentColors } = useTheme();
+
+  const fundsData = {
+    equity: {
+      available: 43.65,
+      used: 0,
+      total: 43.65,
+    },
+    commodity: {
+      available: 0.01,
+      used: 0,
+      total: 0.01,
+    },
+  };
+
   return (
     <>
-      <div className="funds">
-        <p>Instant, zero-cost fund transfers with UPI </p>
-        <Link className="btn btn-green">Add funds</Link>
-        <Link className="btn btn-blue">Withdraw</Link>
+      <h3 className="title">Funds</h3>
+
+      <div
+        className="funds-container"
+        style={{
+          display: "flex",
+          gap: "2rem",
+          marginTop: "2rem",
+        }}
+      >
+        <div
+          className="funds-section"
+          style={{
+            flex: 1,
+            padding: "1.5rem",
+            backgroundColor: isDarkMode ? currentColors.surface : "#f8f9fa",
+            borderRadius: "8px",
+            border: `1px solid ${currentColors.border}`,
+          }}
+        >
+          <h4
+            style={{
+              color: currentColors.text.primary,
+              marginBottom: "1rem",
+              fontSize: "1.1rem",
+              fontWeight: "500",
+            }}
+          >
+            Equity
+          </h4>
+
+          <div className="funds-details">
+            <div
+              className="funds-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "0.5rem",
+                padding: "0.5rem 0",
+              }}
+            >
+              <span style={{ color: currentColors.text.secondary }}>
+                Available margin
+              </span>
+              <span
+                style={{ color: currentColors.text.primary, fontWeight: "500" }}
+              >
+                ₹{fundsData.equity.available.toFixed(2)}
+              </span>
+            </div>
+
+            <div
+              className="funds-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "0.5rem",
+                padding: "0.5rem 0",
+              }}
+            >
+              <span style={{ color: currentColors.text.secondary }}>
+                Used margin
+              </span>
+              <span
+                style={{ color: currentColors.text.primary, fontWeight: "500" }}
+              >
+                ₹{fundsData.equity.used.toFixed(2)}
+              </span>
+            </div>
+
+            <hr
+              style={{
+                border: "none",
+                height: "1px",
+                backgroundColor: currentColors.border,
+                margin: "1rem 0",
+              }}
+            />
+
+            <div
+              className="funds-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0.5rem 0",
+              }}
+            >
+              <span
+                style={{ color: currentColors.text.primary, fontWeight: "500" }}
+              >
+                Total
+              </span>
+              <span
+                style={{ color: currentColors.text.primary, fontWeight: "600" }}
+              >
+                ₹{fundsData.equity.total.toFixed(2)}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="funds-section"
+          style={{
+            flex: 1,
+            padding: "1.5rem",
+            backgroundColor: isDarkMode ? currentColors.surface : "#f8f9fa",
+            borderRadius: "8px",
+            border: `1px solid ${currentColors.border}`,
+          }}
+        >
+          <h4
+            style={{
+              color: currentColors.text.primary,
+              marginBottom: "1rem",
+              fontSize: "1.1rem",
+              fontWeight: "500",
+            }}
+          >
+            Commodity
+          </h4>
+
+          <div className="funds-details">
+            <div
+              className="funds-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "0.5rem",
+                padding: "0.5rem 0",
+              }}
+            >
+              <span style={{ color: currentColors.text.secondary }}>
+                Available margin
+              </span>
+              <span
+                style={{ color: currentColors.text.primary, fontWeight: "500" }}
+              >
+                ₹{fundsData.commodity.available.toFixed(2)}
+              </span>
+            </div>
+
+            <div
+              className="funds-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "0.5rem",
+                padding: "0.5rem 0",
+              }}
+            >
+              <span style={{ color: currentColors.text.secondary }}>
+                Used margin
+              </span>
+              <span
+                style={{ color: currentColors.text.primary, fontWeight: "500" }}
+              >
+                ₹{fundsData.commodity.used.toFixed(2)}
+              </span>
+            </div>
+
+            <hr
+              style={{
+                border: "none",
+                height: "1px",
+                backgroundColor: currentColors.border,
+                margin: "1rem 0",
+              }}
+            />
+
+            <div
+              className="funds-row"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                padding: "0.5rem 0",
+              }}
+            >
+              <span
+                style={{ color: currentColors.text.primary, fontWeight: "500" }}
+              >
+                Total
+              </span>
+              <span
+                style={{ color: currentColors.text.primary, fontWeight: "600" }}
+              >
+                ₹{fundsData.commodity.total.toFixed(2)}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="row">
-        <div className="col">
-          <span>
-            <p>Equity</p>
-          </span>
-
-          <div className="table">
-            <div className="data">
-              <p>Available margin</p>
-              <p className="imp colored">4,043.10</p>
-            </div>
-            <div className="data">
-              <p>Used margin</p>
-              <p className="imp">3,757.30</p>
-            </div>
-            <div className="data">
-              <p>Available cash</p>
-              <p className="imp">4,043.10</p>
-            </div>
-            <hr />
-            <div className="data">
-              <p>Opening Balance</p>
-              <p>4,043.10</p>
-            </div>
-            <div className="data">
-              <p>Opening Balance</p>
-              <p>3736.40</p>
-            </div>
-            <div className="data">
-              <p>Payin</p>
-              <p>4064.00</p>
-            </div>
-            <div className="data">
-              <p>SPAN</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Delivery margin</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Exposure</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Options premium</p>
-              <p>0.00</p>
-            </div>
-            <hr />
-            <div className="data">
-              <p>Collateral (Liquid funds)</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Collateral (Equity)</p>
-              <p>0.00</p>
-            </div>
-            <div className="data">
-              <p>Total Collateral</p>
-              <p>0.00</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="col">
-          <div className="commodity">
-            <p>You don't have a commodity account</p>
-            <Link className="btn btn-blue">Open Account</Link>
-          </div>
-        </div>
+      <div
+        className="funds-actions"
+        style={{
+          marginTop: "2rem",
+          display: "flex",
+          gap: "1rem",
+        }}
+      >
+        <button
+          className="btn btn-blue"
+          style={{
+            backgroundColor: currentColors.primary,
+            border: `1px solid ${currentColors.primary}`,
+            padding: "10px 20px",
+            borderRadius: "4px",
+            textDecoration: "none",
+            color: "#fff",
+            cursor: "pointer",
+          }}
+        >
+          Add funds
+        </button>
+        <button
+          className="btn btn-green"
+          style={{
+            backgroundColor: currentColors.success,
+            border: `1px solid ${currentColors.success}`,
+            padding: "10px 20px",
+            borderRadius: "4px",
+            textDecoration: "none",
+            color: "#fff",
+            cursor: "pointer",
+          }}
+        >
+          Withdraw
+        </button>
       </div>
     </>
   );

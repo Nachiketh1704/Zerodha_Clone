@@ -1,22 +1,27 @@
 import React, { useState, useContext } from "react";
-
 import GeneralContext from "./GeneralContext";
-
 import { Tooltip, Grow } from "@mui/material";
-
 import {
   BarChartOutlined,
   KeyboardArrowDown,
   KeyboardArrowUp,
   MoreHoriz,
+  Search,
 } from "@mui/icons-material";
-
 import { watchlist } from "../data/data";
 import { DoughnutChart } from "./DoughnoutChart";
+import { useTheme } from "../contexts/ThemeContext";
 
 const labels = watchlist.map((subArray) => subArray["name"]);
 
 const WatchList = () => {
+  const { isDarkMode, currentColors } = useTheme();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredWatchlist = watchlist.filter((stock) =>
+    stock.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const data = {
     labels,
     datasets: [
@@ -47,18 +52,33 @@ const WatchList = () => {
   return (
     <div className="watchlist-container">
       <div className="search-container">
-        <input
-          type="text"
-          name="search"
-          id="search"
-          placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
-          className="search"
-        />
-        <span className="counts"> {watchlist.length} / 50</span>
+        <div style={{ position: "relative", width: "100%" }}>
+          <Search
+            sx={{
+              position: "absolute",
+              left: 12,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: currentColors.text.muted,
+              fontSize: 20,
+            }}
+          />
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="Search eg:infy, bse, nifty fut weekly, gold mcx"
+            className="search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            style={{ paddingLeft: "45px" }}
+          />
+        </div>
+        <span className="counts">{filteredWatchlist.length} / 50</span>
       </div>
 
       <ul className="list">
-        {watchlist.map((stock, index) => {
+        {filteredWatchlist.map((stock, index) => {
           return <WatchListItem stock={stock} key={index} />;
         })}
       </ul>
@@ -72,6 +92,7 @@ export default WatchList;
 
 const WatchListItem = ({ stock }) => {
   const [showWatchlistActions, setShowWatchlistActions] = useState(false);
+  const { currentColors } = useTheme();
 
   const handleMouseEnter = (e) => {
     setShowWatchlistActions(true);
@@ -81,18 +102,49 @@ const WatchListItem = ({ stock }) => {
     setShowWatchlistActions(false);
   };
 
+  const getPriceColor = (isDown) => {
+    return isDown ? currentColors.danger : currentColors.success;
+  };
+
   return (
     <li onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="item">
-        <p className={stock.isDown ? "down" : "up"}>{stock.name}</p>
+        <p
+          className={stock.isDown ? "down" : "up"}
+          style={{
+            color: getPriceColor(stock.isDown),
+            fontWeight: 500,
+          }}
+        >
+          {stock.name}
+        </p>
         <div className="itemInfo">
-          <span className="percent">{stock.percent}</span>
+          <span
+            className="percent"
+            style={{ color: getPriceColor(stock.isDown) }}
+          >
+            {stock.percent}
+          </span>
           {stock.isDown ? (
-            <KeyboardArrowDown className="down" />
+            <KeyboardArrowDown
+              className="down"
+              sx={{ color: currentColors.danger, fontSize: 16 }}
+            />
           ) : (
-            <KeyboardArrowUp className="down" />
+            <KeyboardArrowUp
+              className="up"
+              sx={{ color: currentColors.success, fontSize: 16 }}
+            />
           )}
-          <span className="price">{stock.price}</span>
+          <span
+            className="price"
+            style={{
+              color: currentColors.text.primary,
+              fontWeight: 500,
+            }}
+          >
+            ₹{stock.price.toLocaleString("en-IN")}
+          </span>
         </div>
       </div>
       {showWatchlistActions && <WatchListActions uid={stock.name} />}
@@ -102,6 +154,7 @@ const WatchListItem = ({ stock }) => {
 
 const WatchListActions = ({ uid }) => {
   const generalContext = useContext(GeneralContext);
+  const { currentColors } = useTheme();
 
   const handleBuyClick = () => {
     generalContext.openBuyWindow(uid);

@@ -15,17 +15,17 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get("/allHoldings", async (req, res) => {
+app.get("/api/allHoldings", async (req, res) => {
   let allHoldings = await HoldingModel.find({});
   res.json(allHoldings);
 });
 
-app.get("/allPositions", async (req, res) => {
+app.get("/api/allPositions", async (req, res) => {
   let allPositions = await PositionsModel.find({});
   res.json(allPositions);
 });
 
-app.post("/newOrder", async (req, res) => {
+app.post("/api/newOrder", async (req, res) => {
   let newOrder = new OrdersModel({
     name: req.body.name,
     qty: req.body.qty,
@@ -36,6 +36,27 @@ app.post("/newOrder", async (req, res) => {
   newOrder.save();
 
   res.send("Order saved!");
+});
+
+// Market Data Endpoint (Mock data for dashboard)
+app.get("/api/market-data", async (req, res) => {
+  try {
+    const marketData = {
+      nifty: {
+        value: 21223.45 + (Math.random() - 0.5) * 100,
+        change: -89.65 + (Math.random() - 0.5) * 20,
+        changePercent: -0.4 + (Math.random() - 0.5) * 0.5,
+      },
+      sensex: {
+        value: 70678.98 + (Math.random() - 0.5) * 500,
+        change: -245.32 + (Math.random() - 0.5) * 50,
+        changePercent: -0.35 + (Math.random() - 0.5) * 0.5,
+      },
+    };
+    res.json(marketData);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.listen(PORT, () => {
