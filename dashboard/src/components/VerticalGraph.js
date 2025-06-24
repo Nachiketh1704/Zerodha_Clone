@@ -27,11 +27,19 @@ export const options = {
     },
     title: {
       display: true,
-      text: "Holdings",
+      text: "Holdings - Investment vs Current Value",
     },
   },
 };
 
 export function VerticalGraph({ data }) {
-  return <Bar options={options} data={data} />;
+  // Provide default data structure if data is not provided
+  const defaultData = {
+    labels: [],
+    datasets: [],
+  };
+
+  const chartData = data || defaultData;
+
+  return <Bar options={options} data={chartData} />;
 }

@@ -16,26 +16,51 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/api/allHoldings", async (req, res) => {
-  let allHoldings = await HoldingModel.find({});
-  res.json(allHoldings);
+  try {
+    let allHoldings = await HoldingModel.find({});
+    res.json(allHoldings);
+  } catch (error) {
+    console.error("Error fetching holdings:", error);
+    res.status(500).json({ error: "Failed to fetch holdings" });
+  }
 });
 
 app.get("/api/allPositions", async (req, res) => {
-  let allPositions = await PositionsModel.find({});
-  res.json(allPositions);
+  try {
+    let allPositions = await PositionsModel.find({});
+    res.json(allPositions);
+  } catch (error) {
+    console.error("Error fetching positions:", error);
+    res.status(500).json({ error: "Failed to fetch positions" });
+  }
 });
 
 app.post("/api/newOrder", async (req, res) => {
-  let newOrder = new OrdersModel({
-    name: req.body.name,
-    qty: req.body.qty,
-    price: req.body.price,
-    mode: req.body.mode,
-  });
+  try {
+    let newOrder = new OrdersModel({
+      name: req.body.name,
+      qty: req.body.qty,
+      price: req.body.price,
+      mode: req.body.mode,
+      createdAt: new Date(),
+    });
 
-  newOrder.save();
+    await newOrder.save();
+    res.json({ message: "Order saved!", order: newOrder });
+  } catch (error) {
+    console.error("Error saving order:", error);
+    res.status(500).json({ error: "Failed to save order" });
+  }
+});
 
-  res.send("Order saved!");
+app.get("/api/allOrders", async (req, res) => {
+  try {
+    let allOrders = await OrdersModel.find({}).sort({ createdAt: -1 });
+    res.json(allOrders);
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).json({ error: "Failed to fetch orders" });
+  }
 });
 
 // Market Data Endpoint (Mock data for dashboard)

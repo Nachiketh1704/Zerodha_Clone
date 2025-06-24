@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { VerticalGraph } from "./VerticalGraph";
 import { useTheme } from "../contexts/ThemeContext";
 import { useUser } from "../contexts/UserContext";
@@ -6,6 +7,57 @@ import { useUser } from "../contexts/UserContext";
 const Summary = () => {
   const { isDarkMode } = useTheme();
   const { user } = useUser();
+  const [allHoldings, setAllHoldings] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3002/api/allHoldings")
+      .then((res) => {
+        setAllHoldings(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching holdings:", error);
+      });
+  }, []);
+
+  // Calculate totals
+  const totalInvestment = allHoldings.reduce(
+    (sum, holding) => sum + holding.avg * holding.qty,
+    0
+  );
+  const currentValue = allHoldings.reduce(
+    (sum, holding) => sum + holding.price * holding.qty,
+    0
+  );
+  const totalPL = currentValue - totalInvestment;
+
+  // Prepare chart data for VerticalGraph
+  const chartData = {
+    labels: allHoldings.map((holding) => holding.name),
+    datasets: [
+      {
+        label: "Current Value (₹)",
+        data: allHoldings.map((holding) => holding.price * holding.qty),
+        backgroundColor: "rgba(75, 192, 192, 0.6)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+      {
+        label: "Investment (₹)",
+        data: allHoldings.map((holding) => holding.avg * holding.qty),
+        backgroundColor: "rgba(255, 99, 132, 0.6)",
+        borderColor: "rgba(255, 99, 132, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const formatCurrency = (amount) => {
+    if (amount >= 1000) {
+      return `${(amount / 1000).toFixed(1)}k`;
+    }
+    return amount.toFixed(2);
+  };
 
   return (
     <>
@@ -21,19 +73,24 @@ const Summary = () => {
 
         <div className="data">
           <div className="first">
-            <h3>43.65</h3>
-            <p>Margin available</p>
+            <h3>{formatCurrency(currentValue)}</h3>
+            <p>Current Value</p>
             <small>
-              Opening balance <span className="profit">43.65</span>
+              Total Investment{" "}
+              <span className="profit">{formatCurrency(totalInvestment)}</span>
             </small>
           </div>
           <hr />
           <div className="second">
             <p>
-              Commodity <span>0.01</span>
+              P&L{" "}
+              <span className={totalPL >= 0 ? "profit" : "loss"}>
+                {totalPL >= 0 ? "+" : ""}
+                {formatCurrency(Math.abs(totalPL))}
+              </span>
             </p>
             <p>
-              Commodity <span>0.01</span>
+              Holdings <span>{allHoldings.length}</span>
             </p>
           </div>
         </div>
@@ -42,39 +99,56 @@ const Summary = () => {
 
       <div className="section">
         <span>
-          <p>Holdings ({13})</p>
+          <p>Holdings ({allHoldings.length})</p>
         </span>
 
-        <VerticalGraph />
+        <VerticalGraph data={chartData} />
       </div>
 
       <div className="summary">
         <div className="row">
           <div className="col">
             <h5>
-              3.74k <span>Total investment</span>
+              {formatCurrency(totalInvestment)} <span>Total investment</span>
             </h5>
             <p>
-              You haven't made any stocks transactions in your DEMAT yet. Go
-              ahead with shopping first equity investment.
+              {allHoldings.length > 0
+                ? `Your portfolio includes ${
+                    allHoldings.length
+                  } different stocks with a total investment of ₹${totalInvestment.toFixed(
+                    2
+                  )}.`
+                : "You haven't made any stocks transactions in your DEMAT yet. Go ahead with your first equity investment."}
             </p>
           </div>
           <div className="col">
             <h5>
-              1.55k <span>Current value</span>
+              {formatCurrency(currentValue)} <span>Current value</span>
             </h5>
             <p>
-              You haven't made any stocks transactions in your DEMAT yet. Go
-              ahead with shopping first equity investment.
+              {allHoldings.length > 0
+                ? `Current market value of your holdings is ₹${currentValue.toFixed(
+                    2
+                  )}.`
+                : "You haven't made any stocks transactions in your DEMAT yet. Go ahead with your first equity investment."}
             </p>
           </div>
           <div className="col">
             <h5>
-              +2.19k <span>P&L</span>
+              <span className={totalPL >= 0 ? "profit" : "loss"}>
+                {totalPL >= 0 ? "+" : ""}
+                {formatCurrency(Math.abs(totalPL))}
+              </span>{" "}
+              <span>P&L</span>
             </h5>
             <p>
-              You haven't made any stocks transactions in your DEMAT yet. Go
-              ahead with shopping first equity investment.
+              {allHoldings.length > 0
+                ? `Your ${totalPL >= 0 ? "profit" : "loss"} is ₹${Math.abs(
+                    totalPL
+                  ).toFixed(2)} (${((totalPL / totalInvestment) * 100).toFixed(
+                    2
+                  )}%).`
+                : "You haven't made any stocks transactions in your DEMAT yet. Go ahead with your first equity investment."}
             </p>
           </div>
         </div>
@@ -82,7 +156,7 @@ const Summary = () => {
         <div className="row">
           <div className="col">
             <a href="#" className="btn btn-blue">
-              Start investing
+              {allHoldings.length > 0 ? "View All Holdings" : "Start investing"}
             </a>
           </div>
         </div>

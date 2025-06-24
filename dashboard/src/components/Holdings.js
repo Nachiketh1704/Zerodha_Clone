@@ -12,7 +12,7 @@ const Holdings = () => {
     });
   }, []);
 
-  const labels = allHoldings.map((subArray) => subArray["name"]);
+  const labels = allHoldings?.map((subArray) => subArray["name"]) || [];
 
   return (
     <>
