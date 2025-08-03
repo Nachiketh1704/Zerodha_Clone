@@ -7,7 +7,10 @@ function Brokerage() {
         <div className="col-6 p-4">
           <div className="brokerage-section">
             <h3 className="fs-5 mb-4">
-              <a href="#" className="text-decoration-none text-primary">
+              <a
+                href="#brokerage-calculator"
+                className="text-decoration-none text-primary"
+              >
                 Brokerage calculator
               </a>
             </h3>
@@ -46,7 +49,10 @@ function Brokerage() {
         <div className="col-6 p-4">
           <div className="charges-section">
             <h3 className="fs-5 mb-4">
-              <a href="#" className="text-decoration-none text-primary">
+              <a
+                href="#list-of-charges"
+                className="text-decoration-none text-primary"
+              >
                 List of charges
               </a>
             </h3>

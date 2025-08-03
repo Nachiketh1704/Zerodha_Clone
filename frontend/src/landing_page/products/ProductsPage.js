@@ -52,7 +52,7 @@ function ProductsPage() {
       <div className="container text-center mt-5 mb-5">
         <p className="text-muted">
           Want to know more about our technology stack? Check out the{" "}
-          <a href="#" className="text-primary">
+          <a href="#zerodha-tech" className="text-primary">
             Zerodha.tech
           </a>{" "}
           blog.

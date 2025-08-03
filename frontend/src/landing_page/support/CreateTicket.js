@@ -87,7 +87,7 @@ function CreateTicket() {
             {category.links.map((link, linkIndex) => (
               <div key={linkIndex}>
                 <a
-                  href="#"
+                  href="#support-ticket"
                   className="text-decoration-none d-block mb-2"
                   style={{ lineHeight: "1.8", color: "#387ed1" }}
                 >

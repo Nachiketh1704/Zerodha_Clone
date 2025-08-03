@@ -11,7 +11,7 @@ function Hero() {
           </h3>
           <p className="text-muted">
             Check out our{" "}
-            <a href="#" className="text-primary">
+            <a href="#investment-offerings" className="text-primary">
               investment offerings
             </a>
             <i className="fa fa-long-arrow-right ms-1" aria-hidden="true"></i>

@@ -10,7 +10,7 @@ function Hero() {
         id="supportWrapper"
       >
         <h4 className="text-white mb-0">Support Portal</h4>
-        <a href="#" className="text-white text-decoration-none">
+        <a href="#track-tickets" className="text-white text-decoration-none">
           Track tickets
         </a>
       </div>
@@ -34,17 +34,29 @@ function Hero() {
           </div>
 
           <div className="quick-links">
-            <a href="#" className="btn btn-outline-light btn-sm me-2 mb-2">
+            <a
+              href="#track-account-opening"
+              className="btn btn-outline-light btn-sm me-2 mb-2"
+            >
               Track account opening
             </a>
-            <a href="#" className="btn btn-outline-light btn-sm me-2 mb-2">
+            <a
+              href="#track-segment-activation"
+              className="btn btn-outline-light btn-sm me-2 mb-2"
+            >
               Track segment activation
             </a>
-            <a href="#" className="btn btn-outline-light btn-sm me-2 mb-2">
+            <a
+              href="#intraday-margins"
+              className="btn btn-outline-light btn-sm me-2 mb-2"
+            >
               Intraday margins
             </a>
             <br />
-            <a href="#" className="btn btn-outline-light btn-sm me-2 mb-2">
+            <a
+              href="#kite-user-manual"
+              className="btn btn-outline-light btn-sm me-2 mb-2"
+            >
               Kite user manual
             </a>
           </div>
@@ -54,12 +66,12 @@ function Hero() {
           <h3 className="fs-4 text-white mb-4">Featured</h3>
           <ol className="text-white">
             <li className="mb-2">
-              <a href="#" className="text-white">
+              <a href="#surveillance-measures" className="text-white">
                 Surveillance measures on scrips - June 2025
               </a>
             </li>
             <li className="mb-2">
-              <a href="#" className="text-white">
+              <a href="#rights-entitlement" className="text-white">
                 Rights Entitlement listing in June 2025
               </a>
             </li>
